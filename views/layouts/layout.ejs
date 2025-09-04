@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    <%- include("../partials/head") %>
+    <%- include("../partials/head.ejs") %>
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,7 +10,7 @@
     </head>
 
     <body>
-        <%- include("../partials/navigation") %>
+        <%- include("../partials/navigation.ejs") %>
         <header id="top-header">
             <span class="siteName">
                 <a href="/" title="Return to home page">CSE Motors</a>
@@ -21,7 +21,7 @@
         </header>
         
         <nav id="main-nav">
-            <%- include("../partials/main-nav") %>
+            <%- include("../partials/main-nav.ejs") %>
             <ul>
                 <li><a href="/" title="Return to home page">Home</a></li>
                 <li><a href="/about" title="Learn more about us">About</a></li>
@@ -35,7 +35,7 @@
         <% const d = new Date()
         let year = d.getFullYear() %>
         <footer>
-            <%- include("../partials/footer") %>
+            <%- include("../partials/footer.ejs") %>
             <p class="copyright">&copy; <%= year %>, CSE 340 App</p>
         </footer>
     </div>
