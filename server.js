@@ -1,46 +1,21 @@
-/* ******************************************
- * This server.js file is the primary file of the 
- * application. It is used to control the project.
- *******************************************/
-/* ***********************
- * Require Statements
- *************************/
-const express = require("express");
-const expressLayouts = require("express-ejs-layouts");
-require("dotenv").config();
+const express = require('express');
+const path = require('path');
 const app = express();
-const static = require("./routes/static");
-
-/* ***********************
- * View engine and templates
- *************************/
-app.set("view engine", "ejs");
-app.use(expressLayouts);
-app.set("layout", "./layouts/layout"); // not at views root
-
-/* ***********************
- * Routes
- *************************/
-app.use(static);
-
-/* ***********************
- * Local Server Information
- * Values from .env (environment) file
- *************************/
 const PORT = process.env.PORT || 3000;
-const HOST = process.env.HOST || "localhost"; // optional, for local testing
 
-/* ***********************
- * Log statement to confirm server operation
- *************************/
+// EJS setup
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+// Static files
+app.use('/css', express.static(path.join(__dirname, 'public/css')));
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
+
+// Routes
+app.get('/', (req, res) => {
+  res.render('index', { title: 'Home' });
+});
+
 app.listen(PORT, () => {
-  console.log(`App listening on ${HOST}:${PORT}`);
+  console.log(`✅ App listening on http://localhost:${PORT}`);
 });
-
-/* ***********************
- * Home Route
- *************************/
-app.get("/", (req, res) => {
-  res.render("index", { title: "Home" });
-});
-
