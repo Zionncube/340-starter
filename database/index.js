@@ -1,19 +1,10 @@
 const { Pool } = require("pg")
 require("dotenv").config()
 
-let pool
-
-if (process.env.NODE_ENV === "development") {
-  pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false }, // ✅ keep SSL ON in dev too if using remote db
-  })
-} else {
-  pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false }, // ✅ <-- add this line
-  })
-}
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false },   // ✅ this is required on Render
+})
 
 module.exports = {
   async query(text, params) {
@@ -27,4 +18,3 @@ module.exports = {
     }
   },
 }
-
