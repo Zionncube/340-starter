@@ -48,3 +48,59 @@ When you installed Git and cloned the remote repository in week 1, you should ha
 
 YOUTUBE: https://youtu.be/4iBCP2IoiVA
 https://youtu.be/BecQuQtUXyw
+
+<nav>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="#">Custom</a></li>
+    <li><a href="#">Sedan</a></li>
+    <li><a href="#">SUV</a></li>
+    <li><a href="#">Truck</a></li>
+  </ul>
+</nav>
+
+// routes/inventoryRoute.js
+// Inventory routes
+// Import necessary modules
+const express = require('express');
+// Create a new router instance
+const router = express.Router();
+// Import the inventory model to interact with the database
+const invModel = require('../models/inventory-model'); // path to your model
+
+// Route to get all classifications
+// Get all classifications from the database
+router.get('/classifications', async (req, res) => {
+  // Fetch classifications using the model
+  try {
+    const classifications = await invModel.getClassifications();
+  
+    res.json(classifications);
+    // Send the classifications as a JSON response
+  } catch (error) {
+    // Handle errors by sending a 500 response
+    res.status(500).send("Error fetching classifications");
+    // Log the error for debugging
+  }
+});
+
+// Route to get inventory items by classification_id
+// Get inventory items by classification ID from the database
+router.get('/:classification_id', async (req, res) => {
+  // Fetch inventory items using the model
+  try {
+    // Extract classification_id from request parameters
+    const classification_id = req.params.classification_id;// Get inventory items by classification ID
+    //
+    const items = await invModel.getInventoryByClassificationId(classification_id);
+    // Send the inventory items as a JSON response
+    res.json(items);
+    // Handle errors by sending a 500 response
+  } catch (error) {
+    //// Log the error for debugging
+    res.status(500).send("Error fetching inventory items");
+  }
+});
+
+// Export the router to be used in other files
+module.exports = router; this is the invenrtory-model this is the code from models/inventoty-models.js
