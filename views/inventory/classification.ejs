@@ -1,11 +1,17 @@
-// views/inventory/classification.ejs
-<% if (title) { %>
-<h1><%= title %></h1>
-<% } else {
-  res.redirect('/')
-} %>
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/head') %>
+  <body>
+    <%- include('../partials/header') %>
+    <%- include('../partials/nav') %>
 
-<%# messages() %>
+    <main class="container">
+    <%- grid %>
+    </main>
 
+      <p><a href="/inv/">Back to management</a></p>
+    </main>
 
-<%- grid %>
+    <%- include('../partials/footer') %>
+  </body>
+</html>

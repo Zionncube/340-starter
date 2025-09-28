@@ -1,0 +1,30 @@
+<h1>Register</h1>
+
+<% if (errors) { %>
+<ul class="notice">
+  <% errors.array().forEach(error => { %>
+    <li><%= error.msg %></li>
+  <% }) %>
+</ul>
+<% } %>
+
+<form method="POST" action="/account/register">
+  <label>First Name:
+    <input type="text" name="account_firstname" required>
+  </label><br>
+
+  <label>Last Name:
+    <input type="text" name="account_lastname" required>
+  </label><br>
+
+  <label>Email:
+    <input type="email" name="account_email" required>
+  </label><br>
+
+  <label>Password:
+    <input type="password" name="account_password" required
+      pattern="^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\\s).{12,}$">
+  </label><br>
+
+  <button type="submit">Register</button>
+</form>

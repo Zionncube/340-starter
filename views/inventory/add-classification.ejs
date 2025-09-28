@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/head') %>
+  <body>
+    <%- include('../partials/header') %>
+    <%- include('../partials/nav') %>
+
+    <main class="container">
+      <h1>Add Classification</h1>
+
+      <% if (message && message.error) { %>
+        <div class="flash error"><%= message.error.join(' ') %></div>
+      <% } %>
+
+      <form action="/inv/add-classification" method="POST" novalidate>
+        <label for="classification_name">Classification name (no spaces/special chars):</label>
+        <input
+          type="text"
+          id="classification_name"
+          name="classification_name"
+          value="<%= classification_name || '' %>"
+          required
+          pattern="^[A-Za-z0-9_-]+$"
+          title="Only letters, numbers, underscore or hyphen allowed"
+        />
+        <button type="submit">Add</button>
+      </form>
+
+      <p><a href="/inv/">Back to management</a></p>
+    </main>
+
+    <%- include('../partials/footer') %>
+  </body>
+</html>

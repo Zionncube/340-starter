@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/head') %>
+  <body>
+    <%- include('../partials/header') %>
+    <%- include('../partials/nav') %>
+
+    <main class="container">
+      <h1>Inventory Management</h1>
+
+      <% if (message && Object.keys(message).length) { %>
+        <% if (message.success) { %>
+          <div class="flash success"><%= message.success.join(' ') %></div>
+        <% } %>
+        <% if (message.error) { %>
+          <div class="flash error"><%= message.error.join(' ') %></div>
+        <% } %>
+      <% } %>
+
+      <ul>
+        <li><a href="/inv/add-classification">Add New Classification</a></li>
+        <li><a href="/inv/add-inventory">Add New Vehicle</a></li>
+      </ul>
+    </main>
+
+    <%- include('../partials/footer') %>
+  </body>
+</html>
+
