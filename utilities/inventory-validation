@@ -1,0 +1,29 @@
+const { body, validationResult } = require("express-validator")
+
+const inventoryValidate = {}
+
+// Example validation rule for adding/updating inventory
+inventoryValidate.newInventoryRules = () => [
+  body('inv_make').trim().notEmpty().withMessage('Make is required'),
+  body('inv_model').trim().notEmpty().withMessage('Model is required'),
+  body('inv_year').trim().isLength({ min: 4, max: 4 }).withMessage('Year must be 4 digits'),
+  body('inv_price').notEmpty().withMessage('Price required').isFloat({ min: 0 }).withMessage('Price must be a number'),
+  body('inv_miles').notEmpty().withMessage('Mileage required').isInt({ min: 0 }).withMessage('Miles must be an integer'),
+  body('inv_color').trim().notEmpty().withMessage('Color required'),
+  body('classification_id').notEmpty().withMessage('Classification must be chosen').isInt().withMessage('Invalid classification'),
+  body('inv_description').trim(),
+  body('inv_image').trim().optional(),
+  body('inv_thumbnail').trim().optional(),
+]
+
+// Example check function
+inventoryValidate.checkUpdateData = async (req, res, next) => {
+  let errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    // You can customize this to render your edit-inventory view with errors
+    return res.status(400).json({ errors: errors.array() })
+  }
+  next()
+}
+
+module.exports = inventoryValidate

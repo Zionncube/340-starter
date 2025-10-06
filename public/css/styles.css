@@ -336,3 +336,320 @@ main.container p a:hover {
   color: #721c24;
   border: 1px solid #f5c6cb;
 }
+
+/* Inventory Management Table Styles */
+#inventoryDisplay {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1em;
+  background: #fff;
+}
+
+#inventoryDisplay thead {
+  background: #f5f5f5;
+}
+
+#inventoryDisplay th, #inventoryDisplay td {
+  border: 1px solid #ccc;
+  padding: 0.75em 1em;
+  text-align: left;
+}
+
+#inventoryDisplay tr:nth-child(even) {
+  background: #fafafa;
+}
+
+#inventoryDisplay a {
+  color: #0074d9;
+  text-decoration: none;
+}
+
+#inventoryDisplay a:hover {
+  text-decoration: underline;
+}
+
+.flash.success {
+  background: #e6ffed;
+  color: #256029;
+  border: 1px solid #b7eb8f;
+  padding: 0.5em 1em;
+  margin-bottom: 1em;
+  border-radius: 4px;
+}
+
+.flash.error {
+  background: #fff1f0;
+  color: #a8071a;
+  border: 1px solid #ffa39e;
+  padding: 0.5em 1em;
+  margin-bottom: 1em;
+  border-radius: 4px;
+}
+
+
+/* -------------------------------------------------
+   Enhanced Form Styles - Beautiful & Modern
+-------------------------------------------------- */
+
+/* Form Container */
+main form {
+  max-width: 500px;
+  margin: 2rem auto;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2.5rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Form backdrop effect */
+main form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  z-index: -1;
+}
+
+/* Form inner wrapper */
+main form > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Form Labels */
+main form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+  font-size: 0.95rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Input Fields */
+main form input[type="text"],
+main form input[type="email"],
+main form input[type="password"],
+main form select,
+main form textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Input Focus Effects */
+main form input[type="text"]:focus,
+main form input[type="email"]:focus,
+main form input[type="password"]:focus,
+main form select:focus,
+main form textarea:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Submit Button */
+main form button[type="submit"] {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(238, 90, 82, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+main form button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(238, 90, 82, 0.6);
+  background: linear-gradient(45deg, #ee5a52, #ff6b6b);
+}
+
+main form button[type="submit"]:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(238, 90, 82, 0.4);
+}
+
+/* Small Text */
+main form small {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.85rem;
+  display: block;
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+/* Links below forms */
+main p a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+main p a:hover {
+  color: #764ba2;
+  text-decoration: underline;
+}
+
+/* -------------------------------------------------
+   Account Management Page Styles
+-------------------------------------------------- */
+
+/* Management container */
+main h2 {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Management links */
+main ul {
+  list-style: none;
+  max-width: 400px;
+  margin: 2rem auto;
+}
+
+main ul li {
+  margin-bottom: 1rem;
+}
+
+main ul li a {
+  display: block;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(240, 147, 251, 0.4);
+}
+
+main ul li a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(240, 147, 251, 0.6);
+}
+
+/* -------------------------------------------------
+   Update Account Form Specific Styles
+-------------------------------------------------- */
+
+/* Two forms on update page */
+main form:nth-of-type(2) {
+  margin-top: 1rem;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+/* Different button color for password form */
+main form:nth-of-type(2) button[type="submit"] {
+  background: linear-gradient(45deg, #4facfe, #00f2fe);
+  box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+}
+
+main form:nth-of-type(2) button[type="submit"]:hover {
+  box-shadow: 0 6px 20px rgba(79, 172, 254, 0.6);
+}
+
+/* -------------------------------------------------
+   Responsive Design for Forms
+-------------------------------------------------- */
+
+@media (max-width: 768px) {
+  main form {
+    margin: 1rem;
+    padding: 2rem 1.5rem;
+  }
+  
+  main h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* -------------------------------------------------
+   Enhanced Flash Messages
+-------------------------------------------------- */
+
+.flash-message {
+  max-width: 500px;
+  margin: 1rem auto;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+  text-align: center;
+  animation: slideIn 0.5s ease-out;
+}
+
+.flash-message.success {
+  background: linear-gradient(135deg, #56ab2f, #a8e6cf);
+  color: #2d5016;
+  border: none;
+  box-shadow: 0 4px 15px rgba(86, 171, 47, 0.3);
+}
+
+.flash-message.error {
+  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 15px rgba(255, 65, 108, 0.3);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* -------------------------------------------------
+   Header Enhancement
+-------------------------------------------------- */
+
+header nav ul {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
+  margin: 1rem;
+  padding: 1rem;
+}
+
+header nav ul li a {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+header nav ul li a:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}

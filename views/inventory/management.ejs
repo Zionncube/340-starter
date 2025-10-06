@@ -21,9 +21,28 @@
         <li><a href="/inv/add-classification">Add New Classification</a></li>
         <li><a href="/inv/add-inventory">Add New Vehicle</a></li>
       </ul>
+
+      <h2>Manage Inventory</h2>
+      <p>Please select a classification from the list to see the items belonging to the classification.</p>
+
+      <!-- EJS code block for classification list -->
+      <form id="classificationForm">
+        <label for="classificationList">Classification</label>
+        <select id="classificationList" name="classification_id" required>
+          <option value="">Choose a Classification</option>
+          <% if (typeof classificationList !== 'undefined') { %>
+            <%- classificationList %>
+          <% } %>
+        </select>
+      </form>
+
+      <!-- Empty table for inventory items -->
+      <table id="inventoryDisplay"></table>
+
+      <noscript>JavaScript must be enabled to use this page.</noscript>
     </main>
 
     <%- include('../partials/footer') %>
+    <script src="../../js/inventory.js"></script>
   </body>
 </html>
-

@@ -1,5 +1,13 @@
 <header>
-  <h1>CSE Motors</h1>
-  <a href="#" class="account">My Account</a>
+  <nav>
+    <ul>
+      <% if (locals.accountData) { %>
+        <li><a href="/account/">Welcome <%= locals.accountData.account_firstname %></a></li>
+        <li><a href="/account/logout">Logout</a></li>
+      <% } else { %>
+        <li><a href="/account/login">My Account</a></li>
+      <% } %>
+    </ul>
+  </nav>
 </header>
 

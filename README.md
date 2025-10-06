@@ -104,3 +104,6 @@ router.get('/:classification_id', async (req, res) => {
 
 // Export the router to be used in other files
 module.exports = router; this is the invenrtory-model this is the code from models/inventoty-models.js
+
+ https://three40-starter-l62a.onrender.com
+ https://github.com/Zionncube/340-starter.git

@@ -101,11 +101,58 @@ async function insertInventory({
 }
 
 
+/* ***************************
+ *  Update Inventory Data
+ * ************************** */
+async function updateInventory(
+  inv_id,
+  inv_make,
+  inv_model,
+  inv_description,
+  inv_image,
+  inv_thumbnail,
+  inv_price,
+  inv_year,
+  inv_miles,
+  inv_color,
+  classification_id
+) {
+  try {
+    const sql =
+      "UPDATE public.inventory SET inv_make = $1, inv_model = $2, inv_description = $3, inv_image = $4, inv_thumbnail = $5, inv_price = $6, inv_year = $7, inv_miles = $8, inv_color = $9, classification_id = $10 WHERE inv_id = $11 RETURNING *"
+    const data = await pool.query(sql, [
+      inv_make,
+      inv_model,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_year,
+      inv_miles,
+      inv_color,
+      classification_id,
+      inv_id
+    ])
+    return data.rows[0]
+  } catch (error) {
+    console.error("model error: " + error)
+  }
+}
+
+async function addInventory(car) {
+  const { classification_id, car_make, car_model, car_year, car_price } = car;
+  const sql = `INSERT INTO inventory (classification_id, car_make, car_model, car_year, car_price)
+               VALUES ($1,$2,$3,$4,$5)`;
+  return pool.query(sql, [classification_id, car_make, car_model, car_year, car_price]);
+}
+
 module.exports = {
   getClassifications,
   getInventoryByClassificationId,
   getVehicleById,
   insertClassification,   // ← add this line
-  insertInventory         // (add this too if you use it elsewhere)
+  insertInventory,        // (add this too if you use it elsewhere)
+  updateInventory,
+  addInventory
 }
 

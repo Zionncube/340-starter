@@ -1,0 +1,25 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<%- include('../partials/nav') %>
+<main>
+  <% if (locals.accountData) { %>
+    <% if (locals.accountData.account_type === "Employee" || locals.accountData.account_type === "Admin") { %>
+      <h2>Welcome, <%= locals.accountData.account_firstname %>! You have <%= locals.accountData.account_type %> privileges.</h2>
+      <ul>
+        <li><a href="/inv/">Inventory Management</a></li>
+        <li><a href="/inv/add-classification">Add Classification</a></li>
+        <li><a href="/inv/add-inventory">Add Vehicle</a></li>
+        <li><a href="/account/update/<%= locals.accountData.account_id %>">Update Account Information</a></li>
+      </ul>
+    <% } else { %>
+      <!-- No <h2> for Client, not even in the HTML! -->
+      <ul>
+        <li><a href="/account/update/<%= locals.accountData.account_id %>">Update Account Information</a></li>
+      </ul>
+    <% } %>
+  <% } %>
+  <% if (message) { %>
+    <div class="flash-message"><%= message %></div>
+  <% } %>
+</main>
+<%- include('../partials/footer') %>
