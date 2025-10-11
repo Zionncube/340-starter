@@ -62,6 +62,7 @@ const inventoryRoute = require('./routes/inventoryRoute')
 const miscRoutes = require('./routes/misc')
 const baseController = require('./controllers/baseController')
 const Util = require('./utilities')
+const reviewRoute = require("./routes/reviewRoute")
 
 
 
@@ -70,6 +71,7 @@ app.get('/', baseController.buildHome)
 app.use('/inv', inventoryRoute)
 app.use('/', miscRoutes)
 app.use('/account', accountRoute)
+app.use('/reviews', reviewRoute)
 
 
 // Make account data available in all views (optional)

@@ -70,6 +70,33 @@ Util.buildClassificationGrid = function (data) {
   return grid
 }
 
+/* ---------- Build inventory grid for classification pages ---------- */
+Util.buildInventoryGrid = async function(data) {
+  if (!Array.isArray(data) || data.length === 0) {
+    return '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+  }
+  
+  let grid = '<ul id="inv-display">'
+  data.forEach(vehicle => {
+    grid += '<li>'
+    grid += `<a href="/inv/detail/${vehicle.inv_id}" title="View ${vehicle.inv_make} ${vehicle.inv_model} details">`
+    grid += `<img src="${vehicle.inv_thumbnail}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}" />`
+    grid += '</a>'
+    grid += '<div class="namePrice">'
+    grid += '<hr />'
+    grid += '<h2>'
+    grid += `<a href="/inv/detail/${vehicle.inv_id}" title="View ${vehicle.inv_make} ${vehicle.inv_model} details">`
+    grid += `${vehicle.inv_make} ${vehicle.inv_model}`
+    grid += '</a>'
+    grid += '</h2>'
+    grid += `<span>$${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</span>`
+    grid += '</div>'
+    grid += '</li>'
+  })
+  grid += '</ul>'
+  return grid
+}
+
 Util.buildVehicleDetail = function (vehicle) {
   if (!vehicle) return '<p class="notice">Vehicle not found.</p>'
   const price = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(vehicle.inv_price)
@@ -115,9 +142,28 @@ function checkJWT(req, res, next) {
   }
 }
 
+// Add this AFTER your existing checkJWT function (around line 107)
+
+/* ---------- Non-redirecting JWT check for public pages ---------- */
+function checkJWTOptional(req, res, next) {
+  if (req.cookies && req.cookies.jwt) {
+    try {
+      const payload = jwt.verify(req.cookies.jwt, process.env.ACCESS_TOKEN_SECRET)
+      res.locals.accountData = payload
+      res.locals.loggedin = 1
+    } catch (err) {
+      // Invalid token, clear it and continue
+      res.clearCookie("jwt")
+    }
+  }
+  // Always continue, whether logged in or not
+  next()
+}
+
 // ✅ Export the Util object and other helpers directly
 module.exports = {
   ...Util,
   handleErrors,
-  checkJWT
+  checkJWT,
+  checkJWTOptional    // Add new (for public routes that check login status)
 }

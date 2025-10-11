@@ -9,6 +9,7 @@
         <li><a href="/inv/">Inventory Management</a></li>
         <li><a href="/inv/add-classification">Add Classification</a></li>
         <li><a href="/inv/add-inventory">Add Vehicle</a></li>
+        <li><a href="/reviews/manage">Manage Reviews</a></li>
         <li><a href="/account/update/<%= locals.accountData.account_id %>">Update Account Information</a></li>
       </ul>
     <% } else { %>
@@ -21,5 +22,6 @@
   <% if (message) { %>
     <div class="flash-message"><%= message %></div>
   <% } %>
+
 </main>
 <%- include('../partials/footer') %>

@@ -69,8 +69,12 @@ async function registerUser(req, res) {
 async function accountLogin(req, res) {
   let nav = await utilities.getNav()
   const { account_email, account_password } = req.body
+  
+  console.log("🔍 LOGIN ATTEMPT for:", account_email) // Debug
+  
   const accountData = await accountModel.getAccountByEmail(account_email)
   if (!accountData) {
+    console.log("❌ Account not found") // Debug
     req.flash("notice", "Please check your credentials and try again.")
     return res.status(400).render("account/login", {
       title: "Login",
@@ -79,13 +83,27 @@ async function accountLogin(req, res) {
       account_email,
     })
   }
+  
   try {
     if (await bcrypt.compare(account_password, accountData.account_password)) {
+      console.log("✅ Password matches") // Debug
+      
       delete accountData.account_password
-      const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 })
+      
+      // FIX: Use 3600 seconds, not 3600 * 1000
+      const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 })
+      
+      console.log("✅ JWT token created") // Debug
+      console.log("Account data:", { id: accountData.account_id, name: accountData.account_firstname }) // Debug
+      
+      // Set cookie (maxAge is in milliseconds, so 3600 * 1000 is correct here)
       res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
+      
+      console.log("✅ Cookie set, redirecting to /account/") // Debug
+      
       return res.redirect("/account/")
     } else {
+      console.log("❌ Password doesn't match") // Debug
       req.flash("notice", "Please check your credentials and try again.")
       return res.status(400).render("account/login", {
         title: "Login",
@@ -95,6 +113,7 @@ async function accountLogin(req, res) {
       })
     }
   } catch (error) {
+    console.log("❌ Login error:", error) // Debug
     req.flash("notice", "Access Forbidden")
     return res.status(403).render("account/login", {
       title: "Login",
@@ -104,7 +123,6 @@ async function accountLogin(req, res) {
     })
   }
 }
-
 async function buildUpdateView(req, res) {
   const account_id = req.params.account_id
   const nav = await utilities.getNav()

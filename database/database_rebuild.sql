@@ -39,6 +39,17 @@ CREATE TABLE public.account(
   CONSTRAINT account_pkey PRIMARY KEY (account_id)
 );
 
+CREATE TABLE IF NOT EXISTS reviews (
+  review_id SERIAL PRIMARY KEY,
+  account_id INTEGER REFERENCES account(account_id) ON DELETE CASCADE,
+  inv_id INTEGER REFERENCES inventory(inv_id) ON DELETE CASCADE,
+  review_rating INTEGER CHECK (review_rating >= 1 AND review_rating <= 5),
+  review_title VARCHAR(100) NOT NULL,
+  review_text TEXT NOT NULL,
+  review_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE(account_id, inv_id)
+);
+
 --  DATA 
 -- classification data
 INSERT INTO public.classification (classification_name)

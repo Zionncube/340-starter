@@ -29,3 +29,6 @@ Assuming that everything worked, you can log in and the cookie containing the to
 Creative Commons License All materials (except as noted) are by Blaine Robertson and licensed under a Creative Commons Attribution-ShareAlike 3.0 License.
 
 https://www.youtube.com/watch?v=3uX21GNYUyc
+
+RENDER: https://three40-starter-l62a.onrender.com
+GITHUB: https://github.com/Zionncube/340-starter.git

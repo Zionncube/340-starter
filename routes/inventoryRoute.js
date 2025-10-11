@@ -95,10 +95,10 @@ router.post(
 // EDIT INVENTORY (protected)
 router.get("/edit/:inv_id", checkEmployeeOrAdmin, utilities.handleErrors(invController.editInventoryView));
 
-// VIEW INVENTORY BY CLASSIFICATION (public)
-router.get('/type/:classificationId', invController.buildByClassificationId)
+// VIEW INVENTORY BY CLASSIFICATION (public - but check if logged in)
+router.get('/type/:classificationId', utilities.checkJWTOptional, utilities.handleErrors(invController.buildByClassificationId))
 
-// VIEW VEHICLE DETAIL (public)
-router.get('/detail/:inv_id', invController.buildById)
+// VIEW VEHICLE DETAIL (public - but check if logged in) 
+router.get('/detail/:inv_id', utilities.checkJWTOptional, utilities.handleErrors(invController.buildById))
 
 module.exports = router

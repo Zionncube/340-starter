@@ -1,0 +1,35 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<%- include('../partials/nav') %>
+<main>
+  <h1><%= title %></h1>
+  
+  <% if (message) { %>
+    <div class="flash-message"><%= message %></div>
+  <% } %>
+
+  <% if (reviews && reviews.length > 0) { %>
+    <div class="reviews-grid">
+      <% reviews.forEach(review => { %>
+        <div class="review-card">
+          <h3><%= review.inv_make %> <%= review.inv_model %></h3>
+          <p><strong>By:</strong> <%= review.account_firstname %> <%= review.account_lastname %></p>
+          <p><strong>Rating:</strong> 
+            <% for(let i = 1; i <= 5; i++) { %>
+              <%= i <= review.review_rating ? '⭐' : '☆' %>
+            <% } %>
+          </p>
+          <p><strong>Title:</strong> <%= review.review_title %></p>
+          <p><%= review.review_text %></p>
+          <p><small>Posted: <%= new Date(review.review_date).toLocaleDateString() %></small></p>
+          <a href="/reviews/delete/<%= review.review_id %>" 
+             onclick="return confirm('Delete this review?')"
+             class="delete-btn">Delete Review</a>
+        </div>
+      <% }) %>
+    </div>
+  <% } else { %>
+    <p>No reviews found.</p>
+  <% } %>
+</main>
+<%- include('../partials/footer') %>

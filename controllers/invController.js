@@ -206,44 +206,55 @@ invCont.buildByClassificationId = async function (req, res, next) {
  * GET /inv/detail/:inv_id
  * *******************************/
 invCont.buildById = async function (req, res, next) {
+  const vehicle_id = req.params.inv_id
+  
   try {
-    const inv_id = req.params.inv_id;
-    if (!inv_id) return res.status(400).render('error', { title: 'Error', message: 'No vehicle id provided' });
-
-    const data = await invModel.getVehicleById(inv_id);
-
-    if (!data || !data.rows || data.rows.length === 0) {
-      const notFound = new Error('Vehicle not found');
-      notFound.status = 404;
-      throw notFound;
+    const vehicleData = await invModel.getVehicleById(vehicle_id)
+    
+    if (!vehicleData) {
+      const message = `Vehicle with ID ${vehicle_id} not found`
+      req.flash("notice", message)
+      return res.status(404).render("errors/error", {
+        title: "Vehicle Not Found",
+        message,
+        nav: await utilities.getNav()
+      })
     }
-
-    const vehicle = data.rows[0];
-    const vehicleDetail = await utilities.buildVehicleDetail(vehicle);
-
-    res.render('inventory/detail', {
-      title: `${vehicle.inv_make} ${vehicle.inv_model}`,
-      vehicleDetail,
-      nav: await utilities.getNav(),
-    });
-  } catch (err) {
-    next(err);
-  }
-};
-
-/* ***************************
- *  Return Inventory by Classification As JSON
- * ************************** */
-invCont.getInventoryJSON = async (req, res, next) => {
-  const classification_id = parseInt(req.params.classification_id)
-  const invData = await invModel.getInventoryByClassificationId(classification_id)
-  if (invData[0] && invData[0].inv_id) {
-    return res.json(invData)
-  } else {
-    next(new Error("No data returned"))
+    
+    // Get reviews data
+    let reviews = []
+    let ratingStats = { review_count: 0, avg_rating: 0 }
+    
+    try {
+      const reviewModel = require("../models/reviewModel")
+      reviews = await reviewModel.getReviewsByVehicle(vehicle_id)
+      ratingStats = await reviewModel.getVehicleRatingStats(vehicle_id)
+      console.log("Reviews loaded:", reviews.length, "Rating stats:", ratingStats)
+    } catch (reviewError) {
+      console.log("Reviews system not available:", reviewError.message)
+      // Continue without reviews - they're optional
+    }
+    
+    // Build the vehicle detail HTML
+    const grid = await utilities.buildVehicleDetail(vehicleData)
+    const nav = await utilities.getNav()
+    const vehicleName = `${vehicleData.inv_make} ${vehicleData.inv_model}`
+    
+    res.render("inventory/detail", {
+      title: vehicleName,
+      nav,
+      grid,
+      vehicle: vehicleData,
+      reviews: reviews,           // Add this
+      ratingStats: ratingStats,   // Add this
+      errors: null
+    })
+    
+  } catch (error) {
+    console.error("Error in buildById:", error)
+    next(error)
   }
 }
-// 
 
 
 /* ***************************
@@ -350,6 +361,7 @@ invCont.addClassification = async function (req, res, next) {
     next(err)
   }
 }
+
 
 
 // 
